@@ -78,18 +78,24 @@
 <div class="modal fade" id="enSupermercadoModal" tabindex="-1" aria-labelledby="enSupermercadoModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
-      {% if not compra %}
+      {% if not en_compra %}
       <div class="modal-header"><h3>Elija su supermercado</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
 
-          <p class="text-secondary">Used se encuentra en <b>{{ciudad_user.nombre}}, {{ciudad_user.provincia.nombre}}</b></p>
+        <div class="border p-1 mb-3 d-flex align-items-center flex-row">
+          <box-icon size="md" name='current-location' ></box-icon>
+          <div>
+            <p class="text-secondary ">Used se encuentra en <b>{{ciudad_user.nombre}}, {{ciudad_user.provincia.nombre}}</b></p>
+            <a href="{{url_for('main.home')}}">Cambiar ubicacion</a>
+          </div>
+        </div> 
           <form method="POST" id="form-super" action = "">
 
             {{form_super.hidden_tag()}}
             <div class="mb-3">
-              <label class="form-label">Supermercado</label>
+              <label class="form-label mb-1">Supermercado</label>
               <select id="select-super" class="form-select">
                 {% for super in supermercados%}
                   <option value="{{super.id}}">{{super.nombre}}</option>
@@ -105,11 +111,8 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Espere a que finalice la compra actual o ayude a terminarla</p>
-        <div class="d-flex flex-row">
-          <a class="btn btn-primary me-2" href="{{url_for('listas.en_supermercado', lista_id = lista.id, supermercado_id = compra.id_supermercado)}}">Ir a compra</a>
+        <p>Espere a que finalice la compra actual</p>
 
-        </div>
       </div>
 
     {% endif %}

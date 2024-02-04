@@ -1,44 +1,48 @@
-import os
 from flask import Flask
+from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from flask_mail import Mail
-from eggList.config import Config
+
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
+migrate = Migrate()
 login_manager = LoginManager()
 login_manager.login_view = "usuarios.login"
 login_manager.login_message_category = "primary"
 login_manager.login_message = "Necesitas loguearte para poder acceder a esta página"
-
 mail = Mail()
 
 
 
-def create_app(config_class = Config):
+def create_app(config_file = "config.py"):
+
     app = Flask(__name__)
-    app.config.from_object(config_class)
+
+    app.config.from_pyfile(config_file)
 
     db.init_app(app)
+    migrate.init_app(app,db)
     bcrypt.init_app(app)
     login_manager.init_app(app)
     mail.init_app(app)
 
 
+    from eggList.models import (ciudad, compra, grupo_familiar, lista_productos, producto,
+                                provincia, rol_lista, rol_usuario, supermercado, usuario, usuario_lista, usuarios_roles)
 
-    from eggList.listas.routes import listas
-    from eggList.productos.routes import productos
-    from eggList.usuarios.routes import usuarios
-    from eggList.main.routes import main
-    from eggList.grupos_familiares.routes import grupos_familiares
-    from eggList.compras.routes import compras
-    from eggList.provincias.routes import provincias
-    from eggList.errores.routes import errores
+
+    from eggList.controllers.lista_controller import listas
+    from eggList.controllers.usuario_controller import usuarios
+    from eggList.controllers.main_controller import main
+    from eggList.controllers.grupo_familiar_controller import grupos_familiares
+    from eggList.controllers.compra_controller import compras
+    from eggList.controllers.provincia_controller import provincias
+    from eggList.controllers.error_handler import errores
 
     app.register_blueprint(listas)
-    app.register_blueprint(productos)
     app.register_blueprint(usuarios)
     app.register_blueprint(main)
     app.register_blueprint(grupos_familiares)

@@ -37,6 +37,3 @@ def send_email(users, title, body):
     msg = Message(title, sender='nahuel.coronel@ymail.com', recipients= [user.email for user in users])
     msg.body = body
     mail.send(msg)
-
-
-
