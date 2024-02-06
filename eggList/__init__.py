@@ -34,12 +34,12 @@ def create_app(config_file = "config.py"):
                                 provincia, rol_lista, rol_usuario, supermercado, usuario, usuario_lista, usuarios_roles)
 
 
-    from eggList.controllers.lista_controller import listas
-    from eggList.controllers.usuario_controller import usuarios
-    from eggList.controllers.main_controller import main
-    from eggList.controllers.grupo_familiar_controller import grupos_familiares
-    from eggList.controllers.compra_controller import compras
-    from eggList.controllers.provincia_controller import provincias
+    from eggList.controllers.controller_lista import listas
+    from eggList.controllers.controller_usuario import usuarios
+    from eggList.controllers.controller_main import main
+    from eggList.controllers.controller_grupo_familiar import grupos_familiares
+    from eggList.controllers.controller_compra import compras
+    from eggList.controllers.controller_provincia import provincias
     from eggList.controllers.error_handler import errores
 
     app.register_blueprint(listas)

@@ -34,6 +34,7 @@ class UsuarioNoEncontradoException(Exception):
 class ContraseniaInvalidaException(Exception):
     pass
 
+
 def verify_id_token(token):
     s = Serializer(current_app.config['SECRET_KEY'])
     try:
@@ -129,8 +130,8 @@ def modificar_usuario(user_modificado:Usuario, imagen_perfil: Optional[FileStora
     current_user.email = user_modificado.email
     current_user.telefono = user_modificado.telefono
     if imagen_perfil:
-        nombre_imagen = save_profile_picture()
-        user_modificado.imagen_perfil = nombre_imagen
+        nombre_imagen = save_profile_picture(imagen_perfil)
+        current_user.imagen_perfil = nombre_imagen
     data_usuario.save_user(current_user, commit=True)
 
 

@@ -91,20 +91,11 @@ def perfil(usuario_email):
 @logic_usuario.user_roles_required("Usuario")
 def actualizar(usuario_email):
     form = ActualizarPerfilForm()
-    if request.method == "GET":
-        usuario = logic_usuario.get_user_by_email(usuario_email)
-        if not usuario:
-            abort(404)
-        if usuario != current_user:
-            abort(403)
 
-        form.nombre.data = current_user.nombre
-        form.apellido.data = current_user.apellido
-        form.email.data = current_user.email
-        form.telefono.data = current_user.telefono
-        return render_template("usuarios/actualizar_perfil.html", usuario=usuario, form=form)
 
-    if request.method == "POST" and form.validate_on_submit():
+
+
+    if form.validate_on_submit():
         usuario = Usuario(email = form.email.data,
                           nombre = form.nombre.data,
                           apellido = form.apellido.data,
@@ -118,7 +109,18 @@ def actualizar(usuario_email):
 
         flash("Se ha actualizado tu usuario correctamente", "success")
         return redirect(url_for("usuarios.perfil",usuario_email = usuario.email))
+    #Si el form no es valido, que muestre la pagina de actualizar perfil tal y como lo venia haciendo
+    usuario = logic_usuario.get_user_by_email(usuario_email)
+    if not usuario:
+        abort(404)
+    if usuario != current_user:
+        abort(403)
 
+    form.nombre.data = current_user.nombre
+    form.apellido.data = current_user.apellido
+    form.email.data = current_user.email
+    form.telefono.data = current_user.telefono
+    return render_template("usuarios/actualizar_perfil.html", usuario=usuario, form=form)
 
 
 @usuarios.route("/logout")

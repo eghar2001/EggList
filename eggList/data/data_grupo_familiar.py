@@ -2,8 +2,15 @@ from typing import List
 
 from flask_login import current_user
 
+from eggList import db
 from eggList.models.grupo_familiar import GrupoFamiliar
 
+
+def save_grupo_familiar(grupo: GrupoFamiliar, commit:bool = True):
+    if not grupo.id:
+        db.session.add(grupo)
+    if commit:
+        db.session.commit()
 
 def get_grupo_familiar(id_grupo:int = None, nombre:str = None):
     if id_grupo and nombre:

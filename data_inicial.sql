@@ -1,5 +1,5 @@
 START TRANSACTION;
-
+ROLLBACK;
 /*
 Seleccionar BBDD del proyecto
 
@@ -334,7 +334,7 @@ VALUES
 
 
 #VILLA CAÑAS
-INSERT INTO `egglist`.`supermercados`usuarios
+INSERT INTO `egglist`.`supermercados`
 (
 `nombre`,
 `cod_postal`)

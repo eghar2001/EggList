@@ -107,7 +107,7 @@ def crear_lista(lista: ListaProductos, incluye_grupo_familiar:bool):
     rol_armador = data_lista.get_rol_lista("Armador")
     usuarios = []
     if incluye_grupo_familiar and current_user.grupo_familiar:
-        usuarios += current_user.grupo_familiar.integrantes
+        usuarios += current_user.grupo_familiar.get_integrantes()
     else:
         usuarios.append(current_user)
     usuarios_lista = []

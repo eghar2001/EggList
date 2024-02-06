@@ -12,7 +12,7 @@ class Producto(db.Model):
     precio = db.Column(db.Numeric(10, 2), nullable=True)
     cantidad = db.Column(db.Integer())
     esta_en_carrito = db.Column(db.Boolean(), default=False)
-    id_lista = db.Column(db.Integer(), db.ForeignKey('listas.id'))
+    id_lista = db.Column(db.Integer(), db.ForeignKey('listas.id', ondelete ="CASCADE"))
     id_compra = db.Column(db.Integer(), db.ForeignKey('compras.id'))
     id_autor = db.Column(db.Integer(), db.ForeignKey('usuarios.id'), nullable=False)
     autor = db.Relationship('Usuario')

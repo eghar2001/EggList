@@ -17,14 +17,15 @@ class Usuario(db.Model, UserMixin):
     email = db.Column(db.String(100), nullable=False, unique=True)
     email_confirmed_at = db.Column(db.DateTime(), nullable=True)
     telefono = db.Column(db.String(12), nullable = False)
-    imagen_perfil = db.Column(db.String(20), nullable=False, default="default.webp")
+    imagen_perfil = db.Column(db.String(25), nullable=False, default="default.webp")
     password = db.Column(db.String(60), nullable=False)
     fecha_creacion = db.Column(db.DateTime(), nullable=False, default=datetime.utcnow())
 
     roles = db.relationship('RolUsuario', secondary='usuarios_roles')
 
-    id_grupo_familiar = db.Column(db.Integer(), db.ForeignKey('grupos_familiares.id'), nullable=True)
-    grupo_familiar = db.relationship('GrupoFamiliar', back_populates="integrantes")
+    id_grupo_familiar = db.Column(db.Integer(), db.ForeignKey('grupos_familiares.id', ondelete = "SET NULL"), nullable=True)
+    grupo_familiar = db.relationship('GrupoFamiliar',back_populates="usuarios", foreign_keys = [id_grupo_familiar])
+    fecha_confirmacion_grupo = db.Column(db.DateTime(), nullable = True)
 
     cod_postal =db.Column(db.Integer(),db.ForeignKey("ciudades.cod_postal"), nullable=True)
     ciudad = db.relationship('Ciudad')
@@ -55,17 +56,22 @@ class Usuario(db.Model, UserMixin):
 
     def es_familiar_de(self, user):
         if self.grupo_familiar:
-            return user in self.grupo_familiar.integrantes
+            return user in self.grupo_familiar.usuarios
         return False
 
     def esta_confirmado(self):
         return bool(self.email_confirmed_at)
+
+    def tiene_grupo_confirmado(self):
+        return self.id_grupo_familiar and self.fecha_confirmacion_grupo
 
     def confirmar(self):
         self.email_confirmed_at = datetime.utcnow()
 
     def check_password(self, password:str):
         return bcrypt.check_password_hash(self.password, password)
+
+
 
 @login_manager.user_loader
 def load_user(user_id):

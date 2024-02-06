@@ -12,12 +12,39 @@ class GrupoFamiliar(db.Model):
     __tablename__ = "grupos_familiares"
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     nombre_familia = db.Column(db.String(50), nullable=False, unique=True)
-    imagen_grupo = db.Column(db.String(20), nullable=  False, default = "default.jpg")
-    integrantes = db.relationship('Usuario', back_populates="grupo_familiar")
+    imagen_grupo = db.Column(db.String(25), nullable=  False, default = "default.jpg")
 
-    def agregar_integrante(self, nuevo_integrante):
-        if isinstance(nuevo_integrante, Usuario):
-            self.integrantes.append(nuevo_integrante)
+    usuarios = db.relationship('Usuario', back_populates="grupo_familiar", foreign_keys = [Usuario.id_grupo_familiar])
+
+
+    id_admin = db.Column(db.Integer(),db.ForeignKey('usuarios.id'),nullable = False)
+
+    def get_integrantes(self):
+        integrantes  = list(filter(lambda user: user.tiene_grupo_confirmado(),self.usuarios))
+        return integrantes
+
+    def get_invitados(self):
+        invitados  = list(filter(lambda user: not user.tiene_grupo_confirmado(),self.usuarios))
+        return invitados
+
+    def agregar_usuario(self, nuevo_usuario):
+        if not isinstance(nuevo_usuario, Usuario):
+            raise ValueError
+        self.usuarios.append(nuevo_usuario)
+
+    def eliminar_usuario(self, usuario):
+        if not isinstance(usuario, Usuario):
+            raise ValueError
+        self.usuarios.remove(usuario)
+
+    def set_admin(self,nuevo_admin):
+        if nuevo_admin not in self.usuarios:
+            raise ValueError("EL usuario ingresado no es integrante del grupo ")
+        self.id_admin = nuevo_admin.id
+        self.admin = nuevo_admin
+
+
+
 
     def get_img_url(self):
         return url_for('static',filename = "grupo_familiar_pics/"+self.imagen_grupo)

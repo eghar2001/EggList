@@ -1,8 +1,8 @@
-"""modelo inicial
+"""migracion inicial
 
-Revision ID: 4570c6dccfa4
+Revision ID: b0cef958fc44
 Revises: 
-Create Date: 2024-01-18 21:12:24.536944
+Create Date: 2024-02-05 12:33:59.810412
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4570c6dccfa4'
+revision = 'b0cef958fc44'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -69,7 +69,7 @@ def upgrade():
     sa.Column('id_grupo_familiar', sa.Integer(), nullable=True),
     sa.Column('cod_postal', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['cod_postal'], ['ciudades.cod_postal'], ),
-    sa.ForeignKeyConstraint(['id_grupo_familiar'], ['grupos_familiares.id'], ),
+    sa.ForeignKeyConstraint(['id_grupo_familiar'], ['grupos_familiares.id'], ondelete='SET NULL'),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
@@ -85,7 +85,7 @@ def upgrade():
     sa.Column('usuario_id', sa.Integer(), nullable=True),
     sa.Column('role_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
-    sa.ForeignKeyConstraint(['usuario_id'], ['usuarios.id'], )
+    sa.ForeignKeyConstraint(['usuario_id'], ['usuarios.id'], ondelete='CASCADE')
     )
     op.create_table('compras',
     sa.Column('id', sa.Integer(), autoincrement=True, nullable=False),
@@ -102,9 +102,9 @@ def upgrade():
     sa.Column('usuario_id', sa.Integer(), nullable=False),
     sa.Column('lista_id', sa.Integer(), nullable=False),
     sa.Column('role_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['lista_id'], ['listas.id'], ),
+    sa.ForeignKeyConstraint(['lista_id'], ['listas.id'], ondelete='CASCADE'),
     sa.ForeignKeyConstraint(['role_id'], ['roles_en_lista.id'], ),
-    sa.ForeignKeyConstraint(['usuario_id'], ['usuarios.id'], ),
+    sa.ForeignKeyConstraint(['usuario_id'], ['usuarios.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('usuario_id', 'lista_id')
     )
     op.create_table('productos',
@@ -118,7 +118,7 @@ def upgrade():
     sa.Column('id_autor', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['id_autor'], ['usuarios.id'], ),
     sa.ForeignKeyConstraint(['id_compra'], ['compras.id'], ),
-    sa.ForeignKeyConstraint(['id_lista'], ['listas.id'], ),
+    sa.ForeignKeyConstraint(['id_lista'], ['listas.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###
