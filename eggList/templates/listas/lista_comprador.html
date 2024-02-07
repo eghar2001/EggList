@@ -31,7 +31,7 @@
       <div class="d-flex flex-row mt-2" style="column-gap:10px;">
 
         <a class="btn btn-sm mb-2 btn-outline-info"
-          href="{{url_for('productos.modificar_producto', producto_id = producto.id)}}">Modificar📝
+          href="{{url_for('listas.modificar_producto', producto_id = producto.id)}}">Modificar📝
         </a>
         <button type="button" class="btn btn-sm mb-2 btn-outline-success d-flex align-items-center" data-bs-toggle="modal"
           data-bs-target="#productoComprado{{producto.id}}">
@@ -54,7 +54,7 @@
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <form method="POST" action="{{url_for('productos.borrar_producto', producto_id = producto.id)}}">
+                <form method="POST" action="{{url_for('listas.borrar_producto', producto_id = producto.id)}}">
                   <input type="submit" class="btn btn-outline-danger" value="Borrar"></input>
                 </form>
               </div>
@@ -72,7 +72,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">
-                <form method = "POST" action = "{{url_for('productos.confirmar_carrito', producto_id = producto.id)}}">
+                <form method = "POST" action = "{{url_for('listas.confirmar_carrito', producto_id = producto.id)}}">
 
                   {{form_carrito.hidden_tag()}}
                   <div class="mb-3">
@@ -135,7 +135,7 @@
       <div class="d-flex flex-row mt-2" style="column-gap:10px;">
 
         <a class="btn btn-sm mb-2 btn-outline-info"
-          href="{{url_for('productos.modificar_producto', producto_id = producto.id)}}">Modificar📝
+          href="{{url_for('listas.modificar_producto', producto_id = producto.id)}}">Modificar📝
         </a>
         <button type="button" class="btn btn-sm mb-2 btn-outline-danger" data-bs-toggle="modal"
           data-bs-target="#sacarCarrito{{producto.id}}">
@@ -156,7 +156,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <a href="{{url_for('productos.sacar_de_carrito',producto_id = producto.id)}}" type="button" class="btn btn-danger">Sacar</a>
+          <a href="{{url_for('listas.sacar_de_carrito',producto_id = producto.id)}}" type="button" class="btn btn-danger">Sacar</a>
         </div>
       </div>
     </div>
@@ -172,7 +172,7 @@
 
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <form method="POST" action="{{url_for('productos.borrar_producto', producto_id = producto.id)}}">
+                <form method="POST" action="{{url_for('listas.borrar_producto', producto_id = producto.id)}}">
                   <input type="submit" class="btn btn-outline-danger" value="Borrar"></input>
                 </form>
               </div>

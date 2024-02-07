@@ -236,25 +236,29 @@ def get_producto(id:int):
 
 
 def poner_en_carrito(producto:Producto):
-    producto_encontrado = data_producto.get_producto(producto)
+    producto_encontrado:Producto = data_producto.get_producto(producto.id)
     if not producto_encontrado:
         raise ProductoNoEncontradoException
-    lista = ListaProductos(id = producto_encontrado.lista_id)
+    producto_encontrado.cantidad = producto.cantidad
+    producto_encontrado.precio = producto.precio
+    lista = ListaProductos(id = producto_encontrado.id_lista)
     if not user_has_list_role(lista, "Comprador"):
         raise RolEnListaException
-    producto.poner_en_carrito()
+    producto_encontrado.poner_en_carrito()
     data_producto.save_producto(producto,commit=True)
+    return producto_encontrado
 
 
 def sacar_de_carrito(producto:Producto):
-    producto_encontrado = data_producto.get_producto(producto)
+    producto_encontrado = data_producto.get_producto(producto.id)
     if not producto_encontrado:
         raise ProductoNoEncontradoException
-    lista = ListaProductos(id=producto_encontrado.lista_id)
+    lista = ListaProductos(id=producto_encontrado.id_lista)
     if not user_has_list_role(lista, "Comprador"):
         raise RolEnListaException
-    producto.sacar_del_carrito()
+    producto_encontrado.sacar_del_carrito()
     data_producto.save_producto(producto, commit=True)
+    return producto_encontrado
 
 
 def modificar_producto(producto:Producto):

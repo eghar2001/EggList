@@ -37,7 +37,7 @@
         <div class="d-flex flex-row mt-2" style="column-gap:10px;">
           {% if not producto.id_compra %}
             <a class="btn btn-sm mb-2 btn-outline-info"
-              href="{{url_for('productos.modificar_producto', producto_id = producto.id)}}">Modificar📝
+              href="{{url_for('listas.modificar_producto', producto_id = producto.id)}}">Modificar📝
             </a>
           {% endif %}
         </div>
@@ -61,7 +61,7 @@
 
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-          <form method="POST" action="{{url_for('productos.borrar_producto', producto_id = producto.id)}}">
+          <form method="POST" action="{{url_for('listas.borrar_producto', producto_id = producto.id)}}">
             <input type="submit" class="btn btn-outline-danger" value="Borrar"></input>
           </form>
         </div>
@@ -94,7 +94,8 @@
           <div>
             <p class="text-secondary ">Used se encuentra en <b>{{ciudad_user.nombre}}, {{ciudad_user.provincia.nombre}}</b></p>
             <div class="map_container mb-2">
-              {{ map_body | safe }}
+
+
 
             </div>
             <a href="{{url_for('main.home')}}">Cambiar ubicacion</a>

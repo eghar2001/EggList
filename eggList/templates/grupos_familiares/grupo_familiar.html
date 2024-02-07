@@ -26,13 +26,16 @@
                     {% for integrante in integrantes %}
                         <li class="mb-1 d-flex align-items-center card-text">
                             <a href="{{url_for('usuarios.perfil',usuario_email = integrante.email)}}"><img class = "mb-1 sm-profile-pic"src="{{url_for('static', filename='profile_pics/'+integrante.imagen_perfil)}}">{{integrante.nombre}} {{integrante.apellido}}</a>
-                            {% if current_user.grupo_familiar.id_admin == current_user.id  and integrante.id != current_user.grupo_familiar.id_admin %}
+                            {% if current_user.id == current_user.grupo_familiar.id_admin  and integrante.id != current_user.id%}
                                 <abbr title="Eliminar usuario">
 
                                     <button type="button"  style="background:none; border:0;" data-bs-toggle="modal" data-bs-target="#eliminarIntegrante_{{integrante.email}}">
                                       <box-icon name='trash' color="#f16464" animation="tada-hover" class="icon-eliminar-de-grupo"></box-icon>
                                     </button>
                                 </abbr>
+                            {% endif %}
+                            {% if  integrante.id != current_user.grupo_familiar.id_admin %}
+
                                 <div class="modal fade" id="eliminarIntegrante_{{integrante.email}}" tabindex="-1" aria-labelledby="eliminarUsuario_{{integrante.email}}" aria-hidden="true">
                                   <div class="modal-dialog">
                                     <div class="modal-content">

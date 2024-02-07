@@ -221,7 +221,7 @@ def confirmar_carrito(producto_id):
                             precio = form_carrito.precio.data,
                             cantidad = form_carrito.cantidad.data)
         try:
-            eggList.logic.logic_lista.poner_en_carrito(producto)
+            producto_encontrado = eggList.logic.logic_lista.poner_en_carrito(producto)
         except ProductoNoEncontradoException:
             flash("El producto buscado no existe","danger")
             abort(404)
@@ -229,8 +229,8 @@ def confirmar_carrito(producto_id):
             flash("No tenes permisos para realizar este cambio","warning")
             abort(403)
 
-        flash(f"{producto.descripcion} esta en carrito ","success")
-        return redirect(url_for("listas.lista",lista_id = producto.id_lista))
+        flash(f"{producto_encontrado.descripcion} esta en carrito ","success")
+        return redirect(url_for("listas.lista",lista_id = producto_encontrado.id_lista))
 
 
 @listas.route("/producto/<int:producto_id>/sacar_de_carrito")
@@ -239,7 +239,7 @@ def confirmar_carrito(producto_id):
 def sacar_de_carrito(producto_id):
     producto = Producto(id=producto_id)
     try:
-        eggList.logic.logic_lista.sacar_de_carrito(producto)
+       producto_encontrado =  eggList.logic.logic_lista.sacar_de_carrito(producto)
     except ProductoNoEncontradoException:
         flash("El producto buscado no existe", "danger")
         abort(404)
@@ -247,5 +247,5 @@ def sacar_de_carrito(producto_id):
         flash("No tenes permisos para realizar este cambio", "warning")
         abort(403)
 
-    flash(f"{producto.descripcion} esta fuera carrito ", "info")
-    return redirect(url_for("listas.lista", lista_id=producto.id_lista))
+    flash(f"{producto_encontrado.descripcion} esta fuera carrito ", "info")
+    return redirect(url_for("listas.lista", lista_id=producto_encontrado.id_lista))
