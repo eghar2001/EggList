@@ -1,5 +1,6 @@
 {% extends 'layout.html'%}
 
+
 {% block content %}
 <article>
 
@@ -29,20 +30,26 @@
   </section>
 </article>
 <article class="mb-4">
+
 {% block productos %}
 
 {% endblock productos %}
 </article>
 
-
+{% block list_map_scripts %}
+{% endblock list_map_scripts %}
 {% endblock content %}
 
 
 {% block scripts %}
-<script>
-  setInterval("location.reload()",25000);
-</script>
-{% block lista_scripts %}
+  <script>
+    setInterval("location.reload()",50000);
+  </script>
 
-{% endblock lista_scripts%}
+  <script>
+    {{ map_script | safe}}
+  </script>
+  {% block lista_scripts %}
+
+  {% endblock lista_scripts %}
 {% endblock scripts %}

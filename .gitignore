@@ -9,6 +9,9 @@ __pycache__/
 .env
 .flaskenv
 
+eggList/static/profile_pics
+eggList/static/grupo_familiar_pics
+
 # Distribution / packaging
 .Python
 build/

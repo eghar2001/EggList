@@ -1,4 +1,9 @@
+
 {% extends 'listas/lista_layout.html' %}
+
+  {% block list_map_header %}
+    {{ map_header | safe }}
+  {% endblock list_map_header %}
 
 {% block productos %}
 <article class="container">
@@ -88,6 +93,10 @@
           <box-icon size="md" name='current-location' ></box-icon>
           <div>
             <p class="text-secondary ">Used se encuentra en <b>{{ciudad_user.nombre}}, {{ciudad_user.provincia.nombre}}</b></p>
+            <div class="map_container mb-2">
+              {{ map_body | safe }}
+
+            </div>
             <a href="{{url_for('main.home')}}">Cambiar ubicacion</a>
           </div>
         </div> 
@@ -119,18 +128,32 @@
     </div>
   </div>
 </div>
-
+<script>
+  {{ map_script | safe }}
+</script>
 {% endblock productos %}
 
+
+{% block list_map_scripts %}
+  <script>
+  {{map_script }}
+  </script>
+{% endblock list_map_scripts %}
 {% block lista_scripts %}
-<script>
-submit_en_super = document.getElementById("submit-super");
-form_super = document.getElementById("form-super");
-select_super = document.getElementById("select-super");
-submit_en_super.onclick = () => {
-  form_super.setAttribute("action",{{lista.id}}+"/en_supermercado/"+select_super.value);
-  alert({{current_user.nombre}});
-};
-</script>
+
+  <script>
+    {{ map_script | safe}}
+  </script>
+  <script>
+  submit_en_super = document.getElementById("submit-super");
+  form_super = document.getElementById("form-super");
+  select_super = document.getElementById("select-super");
+  submit_en_super.onclick = () => {
+    form_super.setAttribute("action",{{lista.id}}+"/en_supermercado/"+select_super.value);
+    alert({{current_user.nombre}});
+  };
+  </script>
+
 
 {% endblock lista_scripts %}
+

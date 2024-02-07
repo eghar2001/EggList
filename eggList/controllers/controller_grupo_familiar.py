@@ -21,7 +21,7 @@ def crear_grupo_familiar():
 
         grupo = GrupoFamiliar(
             nombre_familia = form.familia.data,
-            integrantes = [current_user, ]
+            usuarios = [current_user, ]
         )
         try:
             logic_grupo_familiar.crear_grupo(grupo,imagen)

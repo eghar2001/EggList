@@ -10,7 +10,7 @@ from eggList.models.producto import Producto
 from eggList.models.supermercado import Supermercado
 from eggList.models.ciudad import Ciudad
 from eggList.forms.producto_form import AgregarProductoForm, CarritoForm, ModificarProductoForm
-from eggList.utils import send_email
+from eggList.utils import send_email, generate_map
 from eggList.logic.logic_usuario import user_roles_required
 from eggList.logic import logic_lista, logic_supermercado
 from eggList.logic.logic_lista import (ListaNoEncontradaException, UsuarioNoEnListaException, RolEnListaException
@@ -93,11 +93,16 @@ def lista(lista_id):
 
         ciudad_user: Ciudad = current_user.ciudad
         supermercados: List[Supermercado] = logic_supermercado.get_supermercados_by_ciudad(cod_postal=ciudad_user.cod_postal)
+
+        """Problema con map script, por ahora no voy a mostrar mapa"""
+        (map_header, map_body, map_script) = None, None, None
+        #(map_header, map_body, map_script) = generate_map(ciudad= ciudad_user, supermercados= supermercados)
         form.supermercado.choices = [(super.id, super.nombre) for super in supermercados]
         lista.productos.sort(key=lambda producto: bool(producto.id_compra))
         return render_template("listas/lista_armador.html", lista=lista,
                                supermercados=supermercados, form_super=form,
-                               ciudad_user=ciudad_user, en_compra=bool(compra_disponible))
+                               ciudad_user=ciudad_user, en_compra=bool(compra_disponible),
+                               map_header = map_header, map_body = map_body, map_script = map_script)
 
 
 
