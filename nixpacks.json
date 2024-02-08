@@ -44,10 +44,6 @@
       ],
       "nixOverlays": [],
       "nixpkgsArchive": "5148520bfab61f99fd25fb9ff7bfbb50dad3c9db"
-    },
-    "start": {
-      "start_command": "waitress-serve app:app"
-
     }
   }
 }
