@@ -20,7 +20,7 @@
         "pip install flask-mail",
         "pip install flask-migrate",
         "pip install flask-bcrypt",
-        "pip install python dotenv",
+        "pip install python-dotenv",
         "pip install mysql-connector",
         "pip install flask-mysqldb",
         "pip install itsdangerous==2.0.1",
