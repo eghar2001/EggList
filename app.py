@@ -3,4 +3,4 @@ from waitress import serve
 app = create_app()
 
 if __name__ == "__main__":
-    serve(app.wsgi_app(),url_scheme = "https", port=8080)
+    serve(app,url_scheme = "https", port=8080)
