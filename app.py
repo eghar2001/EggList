@@ -3,4 +3,4 @@ from waitress import serve
 app = create_app()
 
 if __name__ == "__main__":
-    serve(app,url_scheme = "https", port=8080)
+    serve(app,host = "0.0.0.0",url_scheme = "https", port=8080)
