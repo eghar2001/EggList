@@ -101,7 +101,7 @@
             <a href="{{url_for('main.home')}}">Cambiar ubicacion</a>
           </div>
         </div> 
-          <form method="POST" id="form-super" action = "">
+          <form method="POST" id="form-super" action = "{{url_for('listas.en_supermercado')}}">
 
             {{form_super.hidden_tag()}}
             <div class="mb-3">
