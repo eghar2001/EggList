@@ -24,7 +24,7 @@
         "pip install itsdangerous==2.0.1",
         "pip install Pillow",
         "pip install folium",
-        "pip install gunicorn"
+        "pip install waitress"
       ],
       "cacheDirectories": [
         "/root/.cache/pip"
