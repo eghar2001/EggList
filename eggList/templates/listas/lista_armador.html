@@ -147,9 +147,10 @@
   </script>
   <script>
   submit_en_super = document.getElementById("submit-super");
+  select_super = document.getElementById("select-super");
   form_super = document.getElementById("form-super");
   form_super.setAttribute("action",{{lista.id}}+"/en_supermercado/"+select_super.value);
-  select_super = document.getElementById("select-super");
+
   submit_en_super.onclick = () => {
     form_super.setAttribute("action",{{lista.id}}+"/en_supermercado/"+select_super.value);
     alert({{current_user.nombre}});

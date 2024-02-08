@@ -109,7 +109,7 @@ def lista(lista_id):
 
 
 
-@listas.route("/lista/<int:lista_id>/en_supermercado/<int:supermercado_id>", methods = ["GET","POST"])
+@listas.route("/lista/<int:lista_id>/en_supermercado/<int:supermercado_id>", methods = ["POST"])
 @login_required
 @user_roles_required("Usuario")
 def en_supermercado(lista_id, supermercado_id):
