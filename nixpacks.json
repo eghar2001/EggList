@@ -25,6 +25,7 @@
         "pip install itsdangerous==2.0.1",
         "pip install Pillow",
         "pip install folium",
+        "pip install cryptography",
         "pip install waitress"
       ],
       "cacheDirectories": [
