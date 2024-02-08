@@ -11,7 +11,7 @@
         "setup"
       ],
       "cmds": [
-
+        "sudo apt-get omsta",
         "python -m venv --copies /opt/venv && . /opt/venv/bin/activate && pip install --upgrade pip ",
         "pip install flask",
         "pip install flask-wtf",
@@ -22,7 +22,7 @@
         "pip install flask-bcrypt",
         "pip install python-dotenv",
         "pip install mysql-connector",
-        "pip install flask-mysqldb",
+        "pip install PyMySQL",
         "pip install itsdangerous==2.0.1",
         "pip install Pillow",
         "pip install folium"
