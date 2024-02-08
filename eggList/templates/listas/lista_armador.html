@@ -101,7 +101,7 @@
             <a href="{{url_for('main.home')}}">Cambiar ubicacion</a>
           </div>
         </div> 
-          <form method="POST" id="form-super" action = "{{url_for('listas.en_supermercado')}}">
+          <form method="POST" id="form-super" action = "">
 
             {{form_super.hidden_tag()}}
             <div class="mb-3">
@@ -148,6 +148,7 @@
   <script>
   submit_en_super = document.getElementById("submit-super");
   form_super = document.getElementById("form-super");
+  form_super.setAttribute("action",{{lista.id}}+"/en_supermercado/"+select_super.value);
   select_super = document.getElementById("select-super");
   submit_en_super.onclick = () => {
     form_super.setAttribute("action",{{lista.id}}+"/en_supermercado/"+select_super.value);

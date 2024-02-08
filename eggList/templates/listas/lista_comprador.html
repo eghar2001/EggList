@@ -24,7 +24,7 @@
       <div class="d-flex flex-column align-items-center justify-content-start">
         <span class="text-secondary">Pedido por:</span>
         <a href="{{url_for('usuarios.perfil', usuario_email = producto.autor.email)}}" class=" m-0 d-flex flex-row align-items-center">
-          <img src="{{lista.autor.get_img_url()}}" class="sm-profile-pic m-0" alt="">
+          <img src="{{producto.autor.get_img_url()}}" class="sm-profile-pic m-0" alt="">
           <span class="fw-bold">{{producto.autor.nombre}} {{producto.autor.apellido}}</span>
         </a>
       </div>
@@ -128,7 +128,7 @@
       <div class="d-flex flex-column align-items-center justify-content-start">
         <span class="text-secondary">Pedido por:</span>
         <a href="{{url_for('usuarios.perfil', usuario_email = producto.autor.email)}}" class=" m-0 d-flex flex-row align-items-center">
-          <img src="{{lista.autor.get_img_url()}}" class="sm-profile-pic m-0" alt="">
+          <img src="{{producto.autor.get_img_url()}}" class="sm-profile-pic m-0" alt="">
           <span class="fw-bold">{{producto.autor.nombre}} {{producto.autor.apellido}}</span>
         </a>
       </div>
