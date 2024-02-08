@@ -24,7 +24,7 @@
         "pip install itsdangerous==2.0.1",
         "pip install Pillow",
         "pip install folium",
-        "pip install gunicorn"
+        "pip install waitress"
       ],
       "cacheDirectories": [
         "/root/.cache/pip"
@@ -46,7 +46,7 @@
       "nixpkgsArchive": "5148520bfab61f99fd25fb9ff7bfbb50dad3c9db"
     },
     "start": {
-      "start_command": "gunicorn app:app "
+      "start_command": "waitress-serve app:app"
 
     }
   }
