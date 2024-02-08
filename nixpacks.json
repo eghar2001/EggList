@@ -20,7 +20,6 @@
         "pip install flask-migrate",
         "pip install flask-bcrypt",
         "pip install python-dotenv",
-        "pip install mysql-connector-python",
         "pip install PyMySQL",
         "pip install itsdangerous==2.0.1",
         "pip install Pillow",
