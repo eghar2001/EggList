@@ -10,7 +10,6 @@ __pycache__/
 .flaskenv
 
 eggList/static/profile_pics
-eggList/static/grupo_familiar_pics
 
 # Distribution / packaging
 .Python
