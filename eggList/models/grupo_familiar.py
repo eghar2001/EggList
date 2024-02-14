@@ -20,22 +20,28 @@ class GrupoFamiliar(db.Model):
     id_admin = db.Column(db.Integer(),db.ForeignKey('usuarios.id'),nullable = False)
 
     def get_integrantes(self):
-        integrantes  = list(filter(lambda user: user.tiene_grupo_confirmado(),self.usuarios))
+        integrantes  = list(filter(lambda user: user.tiene_grupo_familiar(), self.usuarios))
         return integrantes
 
     def get_invitados(self):
-        invitados  = list(filter(lambda user: not user.tiene_grupo_confirmado(),self.usuarios))
+        invitados  = list(filter(lambda user: not user.tiene_grupo_familiar(), self.usuarios))
         return invitados
 
     def agregar_usuario(self, nuevo_usuario):
         if not isinstance(nuevo_usuario, Usuario):
             raise ValueError
         self.usuarios.append(nuevo_usuario)
+        nuevo_usuario.grupo_familiar_id = self.id
 
     def eliminar_usuario(self, usuario):
         if not isinstance(usuario, Usuario):
             raise ValueError
-        self.usuarios.remove(usuario)
+        try:
+            self.usuarios.remove(usuario)
+        except ValueError:
+            pass
+        usuario.id_grupo_familiar = None
+        usuario.fecha_confirmacion_grupo = None
 
     def set_admin(self,nuevo_admin):
         if nuevo_admin not in self.usuarios:

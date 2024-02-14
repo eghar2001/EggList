@@ -68,11 +68,8 @@ def invitar_usuario():
         except AdminException:
             flash("No sos el admin de este grupo","danger")
             abort(403)
-
-
-
         flash(f"Se ha enviado la invitacion a '{user.email}'","primary")
-        return redirect(url_for('grupos_familiares.grupo_familiar'))
+    return redirect(url_for('grupos_familiares.grupo_familiar'))
 
 
 @grupos_familiares.route("/grupo_familiar/<string:grupo_familiar>/confirmar_usuario/<confirm_token>")
@@ -92,6 +89,26 @@ def confirmar_usuario(grupo_familiar, confirm_token):
         flash(ex.args[0], "warning")
         return redirect(url_for("grupos_familiares.grupo_familiar"))
     flash(f"Te has unido satisfactoriamente al grupo familiar '{grupo.nombre_familia}'", "success")
+    return redirect(url_for('usuarios.login'))
+
+
+@grupos_familiares.route("/grupo_familiar/<string:grupo_familiar>/rechazar_invitacion/<string:confirm_token>")
+@login_required
+@user_roles_required("Usuario")
+def rechazar_invitacion(grupo_familiar, confirm_token):
+    grupo = GrupoFamiliar(nombre_familia = grupo_familiar)
+    try:
+        logic_grupo_familiar.rechazar_invitacion(grupo,confirm_token)
+    except UsuarioNoEncontradoException:
+        flash("El usuario ingresado no se encontro", "danger")
+        abort(404)
+    except GrupoNoEncontradoException:
+        flash("El grupo buscado no existe","danger")
+        abort(404)
+    except UsuarioEnGrupoException as ex:
+        flash(ex.args[0], "warning")
+        return redirect(url_for("grupos_familiares.grupo_familiar"))
+    flash(f"Has rechazado la invitacion del grupo familiar '{grupo.nombre_familia}'", "warning")
     return redirect(url_for('usuarios.login'))
 
 @grupos_familiares.route("/grupo_familiar/eliminar-usuario/<string:email>", methods = ["POST"])

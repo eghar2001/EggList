@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    {% if current_user.grupo_familiar %}
+    {% if current_user.tiene_grupo_familiar() %}
         <h1 class="mb-4">Grupo Familiar</h1>
         <div class="card p-3 mb-3">
             <img class="card-img-top grupo-familiar-img rounded border border-2 text-secondary" src="{{current_user.grupo_familiar.get_img_url()}}" alt="Imagen grupo familiar {{current_user.grupo_familiar.nombre}}">
@@ -135,7 +135,12 @@
             </form>
         </div>
         {% endif %}
+    {% elif current_user.id_grupo_familiar %}
+        <div class="alert alert-warning" role="alert">
+        <p><strong>Tenes una invitacion de un grupo familiar</strong></p>
+        <p>Revise su correo registrado para confirmar o rechazar su invitacion</p>
 
+      </div>
     {% else %}
       <div class="alert alert-primary" role="alert">
         <p><strong>Vemos que no tenes ningun grupo familiar</strong></p>

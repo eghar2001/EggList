@@ -62,7 +62,7 @@ class Usuario(db.Model, UserMixin):
     def esta_confirmado(self):
         return bool(self.email_confirmed_at)
 
-    def tiene_grupo_confirmado(self):
+    def tiene_grupo_familiar(self):
         return self.id_grupo_familiar and self.fecha_confirmacion_grupo
 
     def confirmar(self):
