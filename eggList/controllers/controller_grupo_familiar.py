@@ -72,7 +72,6 @@ def invitar_usuario():
 
 
 @grupos_familiares.route("/grupo_familiar/<string:grupo_familiar>/confirmar_usuario/<confirm_token>")
-@user_roles_required("Usuario")
 def confirmar_usuario(grupo_familiar, confirm_token):
     grupo = GrupoFamiliar(nombre_familia = grupo_familiar)
     try:
@@ -91,7 +90,6 @@ def confirmar_usuario(grupo_familiar, confirm_token):
 
 
 @grupos_familiares.route("/grupo_familiar/<string:grupo_familiar>/rechazar_invitacion/<string:confirm_token>")
-@user_roles_required("Usuario")
 def rechazar_invitacion(grupo_familiar, confirm_token):
     grupo = GrupoFamiliar(nombre_familia = grupo_familiar)
     try:
