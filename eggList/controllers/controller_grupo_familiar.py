@@ -44,7 +44,6 @@ def grupo_familiar():
     if grupo:
         integrantes= grupo.get_integrantes()
         invitados = grupo.get_invitados()
-    print(invitados)
     return render_template("grupos_familiares/grupo_familiar.html",form = form, invitados = invitados, integrantes = integrantes)
 
 @grupos_familiares.route("/grupo_familiar/invitar_usuario",methods=["POST"])
