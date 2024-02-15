@@ -1,5 +1,5 @@
 
- #EggList
+<h1>EggList</h1>
 
 
 Integrantes:
@@ -59,7 +59,7 @@ PIL -> Manejo de imágenes
 
 
 <h4> Modelo del sistema </h4>
-
+<img src="https://i.ibb.co/VSQTKd5/modelo-egglist.png" alt="modelo-egglist" border="0" />
 
 <h4> Requiermientos Funcionales </h4>
 <h6> Para un usuario </h6>
