@@ -124,7 +124,16 @@ def en_supermercado(lista_id, supermercado_id):
 @user_roles_required("Usuario")
 def agregar_producto(lista_id):
     form = AgregarProductoForm()
-    if request.method == "GET":
+
+    if form.is_submitted() and not form.errors:
+        producto = Producto(descripcion=form.descripcion.data,
+                            cantidad=form.cantidad.data,
+                            autor = current_user,
+                            id_lista = lista_id)
+        logic_lista.agregar_producto( producto)
+        flash(f'Se agregó correctamente el producto {producto.descripcion} a tu lista!', "success")
+        return redirect(url_for('listas.lista', lista_id = producto.id_lista))
+    else:
         lista = None
         try:
             lista = logic_lista.get_lista(lista_id)
@@ -135,14 +144,6 @@ def agregar_producto(lista_id):
             flash("No podes acceder a esta lista")
             abort(403)
         return render_template('productos/agregar_producto_form.html', form=form, lista_id=lista.id)
-    if form.validate_on_submit():
-        lista = ListaProductos(id = lista_id)
-        producto = Producto(descripcion=form.descripcion.data,
-                            cantidad=form.cantidad.data if form.cantidad.data != 0 else None,
-                            autor = current_user)
-        logic_lista.agregar_producto(lista, producto)
-        flash(f'Se agregó correctamente el producto {producto.descripcion} a tu lista!', "success")
-        return redirect(url_for('listas.lista', lista_id = lista.id))
 
 
 
@@ -195,20 +196,25 @@ def borrar_producto(producto_id):
 def modificar_producto(producto_id):
 
     form = ModificarProductoForm()
-    if request.method == "GET":
-        producto = eggList.logic.logic_lista.get_producto(producto_id)
-        form.descripcion.data = producto.descripcion
-        form.cantidad.data = producto.cantidad
-        form.precio.data = producto.precio
-        return render_template("productos/modificar_producto_form.html", form=form, lista_id=producto.id_lista)
-    if form.validate_on_submit():
+    #Anda mal el validate on sumbit, asi que pongo validaciones propias que son equivalentes
+    if form.is_submitted() and not form.errors:
         producto = Producto(id = producto_id,
                             descripcion = form.descripcion.data,
                             cantidad = form.cantidad.data,
                             precio = form.precio.data)
-        eggList.logic.logic_lista.modificar_producto(producto)
+        producto = eggList.logic.logic_lista.modificar_producto(producto)
         flash("Tu producto se ha modificado con exito", "success")
         return redirect(url_for("listas.lista",lista_id = producto.id_lista))
+
+    #Si no se envia el form valido, se va a considerar como un get comun
+    else:
+        producto = eggList.logic.logic_lista.get_producto(producto_id)
+        id_lista = producto.id_lista
+        form.descripcion.data = producto.descripcion
+        form.cantidad.data = producto.cantidad
+        form.precio.data = producto.precio
+        return render_template("productos/modificar_producto_form.html", form=form, lista_id=id_lista)
+
 
 
 @listas.route("/producto/<int:producto_id>/agregar_carrito",methods=["POST"])

@@ -28,6 +28,7 @@ class ListaProductos(db.Model):
                 prod.sacar_del_carrito()
     def agregar_producto(self, producto: Producto):
         self.productos.append(producto)
+        producto.id_lista = self.id
 
     def agregar_usuarios(self, usuarios_nuevos:List):
         self.usuarios = self.usuarios+ usuarios_nuevos

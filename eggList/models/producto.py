@@ -30,6 +30,5 @@ class Producto(db.Model):
         self.esta_en_carrito = True
     def sacar_del_carrito(self):
         self.esta_en_carrito = False
-    def agregar_a_lista(self, lista):
-        self.id_lista = lista.id
+
 

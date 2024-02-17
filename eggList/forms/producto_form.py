@@ -7,12 +7,12 @@ from wtforms.validators import DataRequired, NumberRange
 
 class AgregarProductoForm(FlaskForm):
     descripcion = StringField('Producto', validators = [DataRequired()])
-    cantidad = IntegerField('Cantidad', default = 0)
+    cantidad = IntegerField('Cantidad')
     submit = SubmitField('Agregar')
 
 class ModificarProductoForm(FlaskForm):
     descripcion = StringField('Producto', validators=[DataRequired()])
-    cantidad = IntegerField('Cantidad', validators=[])
+    cantidad = IntegerField('Cantidad')
     precio = DecimalField('Precio Unitario', places=2, rounding=decimal.ROUND_UP)
     submit = SubmitField('Modificar')
 

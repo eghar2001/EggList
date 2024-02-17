@@ -88,13 +88,13 @@ def get_listas_por_semana():
                 listas_por_semana.append((semana, [lista]))
                 index += 1
     return listas_por_semana
-def agregar_producto(lista: ListaProductos, producto: Producto):
-    lista_encontrada = data_lista.get_lista(lista.id)
+def agregar_producto( producto: Producto):
+    lista_encontrada:ListaProductos = data_lista.get_lista(producto.id_lista)
     if not lista_encontrada:
         raise ListaNoEncontradaException
 
-    producto.agregar_a_lista(lista)
-    data_producto.save_producto(producto,commit =True)
+    lista_encontrada.agregar_producto(producto)
+    data_lista.save_lista(lista_encontrada,commit =True)
 
 
 def crear_lista(lista: ListaProductos, incluye_grupo_familiar:bool):
@@ -261,9 +261,14 @@ def sacar_de_carrito(producto:Producto):
     return producto_encontrado
 
 
-def modificar_producto(producto:Producto):
+def modificar_producto(producto:Producto) -> Producto:
     #No hay ninguna validacion para realizar(por ahora)
-    data_producto.save_producto(producto, commit=True)
+    producto_a_modificar:Producto = data_producto.get_producto(id = producto.id)
+    producto_a_modificar.descripcion = producto.descripcion
+    producto_a_modificar.precio = producto.precio
+    producto_a_modificar.cantidad = producto.cantidad
+    data_producto.save_producto(producto_a_modificar, commit=True)
+    return producto_a_modificar
 
 
 def borrar_producto(producto):
